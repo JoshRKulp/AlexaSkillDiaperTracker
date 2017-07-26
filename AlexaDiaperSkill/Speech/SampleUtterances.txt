@@ -1,0 +1,8 @@
+﻿HelloWorldIntent say hello
+HelloWorldIntent say hello world
+HelloWorldIntent hello
+HelloWorldIntent say hi
+HelloWorldIntent say hi world
+HelloWorldIntent hi
+
+AMAZON.HelpIntent assistance needed please
