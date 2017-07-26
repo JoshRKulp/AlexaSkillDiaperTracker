@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/DiapersData/Web.Release.config
+/DiapersData/Web.Debug.config
+/DiapersData/Web.config

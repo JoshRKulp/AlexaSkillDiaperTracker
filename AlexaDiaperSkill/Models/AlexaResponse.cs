@@ -133,10 +133,5 @@ namespace AlexaDiaperSkill.Models
         }
       }
     }
-
-    public void HelpIntentHandler(Request request)
-    {
-      throw new NotImplementedException();
-    }
   }
 }

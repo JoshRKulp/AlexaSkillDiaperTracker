@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JoshRKulpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Diapers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="KidId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kid">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AmazonId" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Diapers_ToKids">
+          <End Role="Kid" Type="Self.Kid" Multiplicity="1" />
+          <End Role="Diapers" Type="Self.Diapers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kid">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diapers">
+              <PropertyRef Name="KidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kid_ToUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Kid" Type="Self.Kid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kid">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JoshRKulpModelStoreContainer">
+          <EntitySet Name="Diapers" EntityType="Self.Diapers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kid" EntityType="Self.Kid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Diapers_ToKids" Association="Self.FK_Diapers_ToKids">
+            <End Role="Kid" EntitySet="Kid" />
+            <End Role="Diapers" EntitySet="Diapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kid_ToUser" Association="Self.FK_Kid_ToUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Kid" EntitySet="Kid" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JoshRKulpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Diaper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="KidId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kid" Relationship="Self.FK_Diapers_ToKids" FromRole="Diapers" ToRole="Kid" />
+        </EntityType>
+        <EntityType Name="Kid">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Diapers" Relationship="Self.FK_Diapers_ToKids" FromRole="Kid" ToRole="Diapers" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Kid_ToUser" FromRole="Kid" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="AmazonId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kids" Relationship="Self.FK_Kid_ToUser" FromRole="User" ToRole="Kid" />
+        </EntityType>
+        <Association Name="FK_Diapers_ToKids">
+          <End Role="Kid" Type="Self.Kid" Multiplicity="1" />
+          <End Role="Diapers" Type="Self.Diaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kid">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diapers">
+              <PropertyRef Name="KidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kid_ToUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Kid" Type="Self.Kid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kid">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JoshRKulpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Diapers" EntityType="Self.Diaper" />
+          <EntitySet Name="Kids" EntityType="Self.Kid" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Diapers_ToKids" Association="Self.FK_Diapers_ToKids">
+            <End Role="Kid" EntitySet="Kids" />
+            <End Role="Diapers" EntitySet="Diapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kid_ToUser" Association="Self.FK_Kid_ToUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Kid" EntitySet="Kids" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JoshRKulpModelStoreContainer" CdmEntityContainer="JoshRKulpEntities">
+          <EntitySetMapping Name="Diapers">
+            <EntityTypeMapping TypeName="JoshRKulpModel.Diaper">
+              <MappingFragment StoreEntitySet="Diapers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="KidId" ColumnName="KidId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kids">
+            <EntityTypeMapping TypeName="JoshRKulpModel.Kid">
+              <MappingFragment StoreEntitySet="Kid">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="JoshRKulpModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AmazonId" ColumnName="AmazonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
