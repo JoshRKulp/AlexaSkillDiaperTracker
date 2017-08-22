@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="JoshRKulpModel.User" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="JoshRKulpModel.FK_Diapers_ToKids" ManuallyRouted="false" />
         <AssociationConnector Association="JoshRKulpModel.FK_Kid_ToUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JoshRKulpModel.AlexaRequest" Width="1.5" PointX="7.75" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

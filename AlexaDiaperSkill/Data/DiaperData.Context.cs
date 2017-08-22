@@ -28,5 +28,6 @@ namespace AlexaDiaperSkill.Data
         public DbSet<Diaper> Diapers { get; set; }
         public DbSet<Kid> Kids { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<AlexaRequest> AlexaRequests { get; set; }
     }
 }

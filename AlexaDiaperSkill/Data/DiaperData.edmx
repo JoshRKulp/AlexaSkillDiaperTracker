@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="JoshRKulpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="JoshRKulpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AlexaRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SessionId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ApplicationId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RequestId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Intent" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Diapers">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,6 +64,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="JoshRKulpModelStoreContainer">
+          <EntitySet Name="AlexaRequest" EntityType="Self.AlexaRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Diapers" EntityType="Self.Diapers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kid" EntityType="Self.Kid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -66,8 +77,7 @@
             <End Role="Kid" EntitySet="Kid" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="JoshRKulpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -135,7 +145,18 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Kid" EntitySet="Kids" />
           </AssociationSet>
+          <EntitySet Name="AlexaRequests" EntityType="JoshRKulpModel.AlexaRequest" />
         </EntityContainer>
+        <EntityType Name="AlexaRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SessionId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RequestId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Intent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -166,6 +187,17 @@
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AmazonId" ColumnName="AmazonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlexaRequests">
+            <EntityTypeMapping TypeName="JoshRKulpModel.AlexaRequest">
+              <MappingFragment StoreEntitySet="AlexaRequest">
+                <ScalarProperty Name="Intent" ColumnName="Intent" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

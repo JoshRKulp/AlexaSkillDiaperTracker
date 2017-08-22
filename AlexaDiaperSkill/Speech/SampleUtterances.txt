@@ -5,4 +5,21 @@ HelloWorldIntent say hi
 HelloWorldIntent say hi world
 HelloWorldIntent hi
 
+AddDiapers I took {Name} diapers to school {Date}
+AddDiapers I took {Name} diapers to school on {Date}
+AddDiapers I took {Name} diapers {Date}
+AddDiapers I took {Name} diapers on {Date}
+AddDiapers I took diapers for {Name} on {Date}
+AddDiapers I took diapers for {Name} {Date}
+AddDiapers I took {Name} diapers to school on {Date}
+AddDiapers I took {Name} {Number} diapers to school {Date}
+
+
+checkDiapers How many diapers are left
+checkDiapers Whats left
+checkDiapers What is left
+checkDiapers How many left
+checkDiapers How many diapers
+checkDiapers Status
+
 AMAZON.HelpIntent assistance needed please
